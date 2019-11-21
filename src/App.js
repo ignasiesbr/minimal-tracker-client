@@ -3,16 +3,21 @@ import "./App.css";
 import Navbar from "./components/layout/Navbar";
 import Landing from "./components/layout/Landing";
 import Routes from './components/routing/Routes';
-import Login from './components/auth/Login';
-
+import {loadProjects} from './actions/projects';
 import store from './store';
-
+import setAuthToken from './utils/setAuthToken'
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
+if (localStorage.token) {
+  setAuthToken(localStorage.token);
+}
+
 function App() {
 
-  
+  useEffect(() => {
+    store.dispatch(loadProjects());
+  }, []);
 
   return (
     <Provider store={store}>
@@ -28,5 +33,6 @@ function App() {
     </Provider>
   );
 }
+
 
 export default App;

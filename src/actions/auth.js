@@ -9,6 +9,8 @@ import {
 
 } from './constants';
 import setAuthToken from '../utils/setAuthToken';
+import {setAlert} from './alert';
+
 
 export const loadUser =  () => async dispatch => {
     if (localStorage.getItem('token')) {
@@ -21,11 +23,14 @@ export const loadUser =  () => async dispatch => {
             type: USER_LOADED,
             payload: res.data
         });
+
     }
     catch(err) {
         dispatch({
             type: AUTH_ERROR
         });
+        dispatch(setAlert("Something went wrong", "danger"));
+
     };
 };
 
@@ -45,12 +50,15 @@ export const login = (email, password) => async dispatch => {
         });
 
         dispatch(loadUser());
+
+        dispatch(setAlert("Logged in successfully", "success"));
     }
     catch(err) {
         console.error(err);
         dispatch({
             type: LOGIN_FAIL
         });
+        dispatch(setAlert("Something went wrong", "danger"));
     }
 }
 
@@ -70,11 +78,14 @@ export const register = (name, email, password, password2)  => async dispatch =>
         });
 
         dispatch(loadUser());
+
+        dispatch(setAlert("Registered successfully", "success"));
     }
     catch(err) {
-        console.error(err);
         dispatch({
             type: REGISTER_FAIL
         });
+        dispatch(setAlert("Something went wrong", "danger"));
+
     }
 };

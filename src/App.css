@@ -315,7 +315,7 @@ main section#primary .register-button:active {
   justify-content: center;
   -webkit-box-align: start;
   -ms-flex-align: start;
-  align-items: start;
+  align-items: flex-start;
   width: 80%;
 }
 
@@ -717,3 +717,26 @@ section.edit-profile * {
   height: 200px;
 }
 /*# sourceMappingURL=main.css.map */
+
+
+/* Added a posteriori */
+
+.alert {
+  width: 100%;
+  font-size: 13px;
+  font-weight: bold;
+  text-transform: uppercase;
+  height: 30px;
+  border-radius: 10px;
+  text-align: center;
+  padding: 5px;
+  margin: 10px;
+}
+.alert-success {
+  background-color: rgb(69, 196, 10);
+  color: white;
+}
+.alert-danger {
+  background-color: rgb(216, 20, 20);
+  color: white;
+}

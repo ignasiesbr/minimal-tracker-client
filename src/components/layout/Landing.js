@@ -1,5 +1,5 @@
 import React from "react";
-
+import {Link} from 'react-router-dom';
 const Landing = () => {
   return (
     <main>
@@ -32,9 +32,9 @@ const Landing = () => {
         <h1>Start now!</h1>
         <p>Start now! Register below, it's free!</p>
 
-        <a href="#" className="register-button">
+        <Link to="/register" className="register-button">
           Register here
-        </a>
+        </Link>
       </section>
     </main>
   );

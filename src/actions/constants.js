@@ -4,3 +4,12 @@ export const REGISTER_FAIL= 'REGISTER_FAIL';
 export const LOGIN_FAIL= 'LOGIN_FAIL';
 export const USER_LOADED= 'USER_LOADED';
 export const AUTH_ERROR= 'AUTH_ERROR';
+export const LOAD_PROJECTS = 'LOAD_PROJECTS';
+export const ADD_ISSUE = 'ADD_ISSUE';
+export const ADD_ISSUE_FAILURE = 'ADD_ISSUE_FAILURE';
+export const UPDATE_PROFILE = 'UPDATE_PROFILE';
+export const UPDATE_PROFILE_FAILURE = 'UPDATE_PROFILE_FAILURE';
+export const SET_ALERT = 'SET_ALERT';
+export const REMOVE_ALERT = 'REMOVE_ALERT';
+
+
