@@ -29,8 +29,6 @@ export const loadUser =  () => async dispatch => {
         dispatch({
             type: AUTH_ERROR
         });
-        dispatch(setAlert("Something went wrong", "danger"));
-
     };
 };
 

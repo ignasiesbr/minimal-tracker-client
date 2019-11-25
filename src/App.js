@@ -4,6 +4,7 @@ import Navbar from "./components/layout/Navbar";
 import Landing from "./components/layout/Landing";
 import Routes from './components/routing/Routes';
 import {loadProjects} from './actions/projects';
+import {loadUser} from './actions/auth';
 import store from './store';
 import setAuthToken from './utils/setAuthToken'
 import { Provider } from 'react-redux';
@@ -17,6 +18,7 @@ function App() {
 
   useEffect(() => {
     store.dispatch(loadProjects());
+    store.dispatch(loadUser());
   }, []);
 
   return (

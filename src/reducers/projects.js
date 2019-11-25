@@ -1,8 +1,9 @@
-import {LOAD_PROJECTS, ADD_ISSUE, ADD_ISSUE_FAILURE} from '../actions/constants';
+import {LOAD_PROJECTS, ADD_ISSUE, ADD_ISSUE_FAILURE, CHANGE_SELECTED, CHANGE_SELECTED_FAILURE} from '../actions/constants';
 
 const initialState = {
     projects: [],
-    selectedProject: null
+    selectedProject: null,
+    loading: true
 }
 
 export default (state = initialState, action ) => {
@@ -13,17 +14,24 @@ export default (state = initialState, action ) => {
                 ...state,
                 projects: payload,
                 selectedProject: payload[0],
+                loading: false,
             };
         case ADD_ISSUE:
             return {
                 ...state,
-                projects: state.projects.map(project => {
-                    if (project._id == payload._id) {
-                        return payload
-                    }
-                    return project;
-                })
-            };
+                loading: false,
+                projects: state.projects.map(project => project._id === state.selectedProject._id ? {
+                    ...project,
+                    issues: [...project.issues, payload]
+                } : project)
+            }; 
+        case CHANGE_SELECTED:
+            return {
+                ...state,
+                selectedProject: state.projects.filter(project => project._id === payload)[0],
+                loading: false
+            }
+        case CHANGE_SELECTED_FAILURE:
         case ADD_ISSUE_FAILURE: 
         default:
             return state;

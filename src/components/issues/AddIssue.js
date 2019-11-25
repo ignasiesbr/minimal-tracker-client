@@ -3,14 +3,15 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types'
 import {loadProjects, addIssue} from '../../actions/projects';
 
-function AddIssue({projects, loadProjects, addIssue}) {
+function AddIssue({projects, loadProjects,selected, addIssue}) {
 
   const [issueData, setIssue] = useState({
     type:"Bug",
     summary:"",
     description: "",
-    project_id: ""  
+    project_id:selected
   });
+
   
   const {type, summary, description, project_id} = issueData;
   
@@ -21,7 +22,7 @@ function AddIssue({projects, loadProjects, addIssue}) {
   //Get the default project_id option, the first one
   useEffect(() => {
     loadProjects();
-  }, [loadProjects]);
+  }, [projects]);
 
     
   const handleChange = e => {
@@ -35,13 +36,18 @@ function AddIssue({projects, loadProjects, addIssue}) {
     if (project_id === "") {
       try {
         setIssue({...issueData, project_id: projects[0]._id})
-        addIssue(type, summary, description, project_id)
+        return console.log(JSON.stringify(issueData));
+        return addIssue(type, summary, description, project_id)
       }
       catch(err) {
-        console.error('Something went wrong');
+        return console.error('Something went wrong');
       }
     }
-    addIssue(type, summary, description, project_id);
+    console.log(JSON.stringify(issueData))
+    await addIssue(issueData);
+
+    return;
+    // addIssue(type, summary, description, project_id);
   }
   
   return (
@@ -64,6 +70,8 @@ function AddIssue({projects, loadProjects, addIssue}) {
           <span id="separator"></span>
           <label>Description</label>
           <textarea  value={description} name="description" onChange={e => handleChange(e)}></textarea>
+          <label>Deadline of the issue</label>
+          <input type="date" name="deadline" onChange={e => handleChange(e)}/>
           <input type="submit" />
         </form>
       </section>
@@ -71,6 +79,8 @@ function AddIssue({projects, loadProjects, addIssue}) {
   );
 }
 AddIssue.propTypes = {
+  loadProjects: PropTypes.func.isRequired,
+  addIssue: PropTypes.func.isRequired,
   projects: PropTypes.array.isRequired,
 }
 

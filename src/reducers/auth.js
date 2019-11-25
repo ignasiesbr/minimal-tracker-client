@@ -4,7 +4,9 @@ import {
     LOGIN_FAIL,
     REGISTER_FAIL,
     USER_LOADED,
-    AUTH_ERROR
+    AUTH_ERROR,
+    ADD_NOTIFICATION_SUCCESS,
+    ADD_NOTIFICATION_FAILURE
 } from '../actions/constants';
 
 const initialState = {
@@ -32,6 +34,15 @@ export default (state = initialState, action) => {
                 loading: false,
                 isAuthenticated: true
             };
+        case ADD_NOTIFICATION_SUCCESS:
+            return {
+                ...state,
+                user: {
+                    ...state.user,
+                    notifications: [...state.user.notifications, action.payload]
+                }
+            }
+        case ADD_NOTIFICATION_FAILURE:
         case LOGIN_FAIL:
         case REGISTER_FAIL:
         case AUTH_ERROR:

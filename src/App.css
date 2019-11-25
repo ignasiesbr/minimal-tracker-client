@@ -683,12 +683,13 @@ section.edit-profile * {
   border: 3px solid black;
   width: 70%;
   height: 200px;
+  overflow: auto;
 }
 
 .todo-container .active-filter .filter {
   display: -ms-grid;
   display: grid;
-  margin-top: 30px;
+  /* margin-top: 30px; */
   -ms-grid-columns: auto auto auto;
   grid-template-columns: auto auto auto;
   padding: 5px;
@@ -697,7 +698,7 @@ section.edit-profile * {
 
 @media (min-width: 840px) {
   .todo-container .active-filter .filter {
-    margin-top: 100%;
+    /* margin-top: 100%; */
   }
 }
 

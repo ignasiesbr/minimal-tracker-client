@@ -60,9 +60,17 @@ const Navbar = ({isAuthenticated}) => {
       <li>
         <Link to="/dashboard">
           <span role="img" aria-label="navbar-emoji">
-            👤
+            🏠️
           </span>{" "}
           Home
+        </Link>
+      </li>
+      <li>
+        <Link to="/overview">
+          <span role="img" aria-label="navbar-emoji">
+            👤
+          </span>{" "}
+          Profile
         </Link>
       </li>
   </ul>

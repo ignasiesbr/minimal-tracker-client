@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {LOAD_PROJECTS, ADD_ISSUE, ADD_ISSUE_FAILURE} from './constants';
+import {LOAD_PROJECTS, ADD_ISSUE, ADD_ISSUE_FAILURE, CHANGE_SELECTED, CHANGE_SELECTED_FAILURE} from './constants';
 import {setAlert} from './alert';
 
 export const loadProjects = () => async dispatch => {
@@ -15,14 +15,14 @@ export const loadProjects = () => async dispatch => {
     }
 }
 
-export const addIssue = (type, summary, description, project_id) => dispatch => {
-    const body = JSON.stringify({type, summary, description});
+export const addIssue = (issueData) => dispatch => {
+    const body = JSON.stringify(issueData);
     const config = {
         headers: {
             'Content-Type':'application/json'
         }
     };
-    axios.post(`/api/project/issue/${project_id}`, body, config).then(
+    axios.post(`/api/project/issue/${issueData.project_id}`, body, config).then(
         res => {
             dispatch({
                 type: ADD_ISSUE,
@@ -38,3 +38,21 @@ export const addIssue = (type, summary, description, project_id) => dispatch => 
             dispatch(setAlert("Something went wrong", "danger"));
         });
 };
+
+export const changeSelectedProject = (id) => dispatch => {
+    try {
+        dispatch({
+            type: CHANGE_SELECTED,
+            payload:id
+        });
+    }
+    catch(err) {
+        dispatch({
+            type: CHANGE_SELECTED_FAILURE
+        });
+    };
+};
+
+export const inviteUser = id => dispatch => {
+    return null;
+}
