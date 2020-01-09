@@ -15,3 +15,10 @@ export const setAlert = (msg, alertType, timeout = 1500) => dispatch => {
     }, timeout);
 };
 
+export const deleteAlert = (id) => async dispatch =>{
+    dispatch({
+        type: REMOVE_ALERT,
+        payload: id
+    })
+}
+

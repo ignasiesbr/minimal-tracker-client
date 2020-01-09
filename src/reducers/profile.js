@@ -15,7 +15,10 @@ export default (state = initialState, action) => {
                 loading: false
             }
         case UPDATE_PROFILE_FAILURE:
-            
+            return {
+                ...state,
+                loading: false,
+            }
         default:
             return state;
     }

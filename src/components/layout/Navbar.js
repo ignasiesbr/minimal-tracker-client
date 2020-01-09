@@ -1,95 +1,87 @@
-import React, {Fragment} from "react";
+import React from "react";
 import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux';
-
 //TODO, HREF, arreglar que quan esta modo movil queda una petita linea al ocultar el menu, apareix a css.grid tut wes bos
 
 const Navbar = ({isAuthenticated}) => {
-  function toggleNav(event) {
-    const target = event.target;
-    const expanded = target.getAttribute("aria-expanded") === "true" || false;
-    target.setAttribute("aria-expanded", !expanded);
-  } 
 
   const guestLinks = (
-    <ul id="menu-list">
-      <li className="logo">
-        <div>NOMEMPRESA</div>
-      </li>
-      <li>
-        <Link to="/about">
-          <span role="img" aria-label="navbar-emoji">
-            🌍
-          </span>{" "}
-          About
+    <ul className="nav-list">
+      <li className="nav-list__item">
+        <Link to="/" className="nav-list__link">
+          <svg className="nav-list__icon nav-list__icon--logo">
+              <use xlinkHref='/sprite.svg#icon-ballot'></use>
+          </svg>
+          <span className="logo-name">Minimal tracker</span>
         </Link>
       </li>
-      <li>
-        <Link to="/register">
-          <span role="img" aria-label="navbar-emoji">
-            👤
-          </span>{" "}
-          Register
+      <li className="nav-list__item">
+        <Link to="/about" className="nav-list__link">
+          <svg className="nav-list__icon">
+            <use xlinkHref='/sprite.svg#icon-public'></use>
+          </svg>
+            <span>About</span>
         </Link>
       </li>
-      <li>
-        <Link to="/login">
-          <span role="img" aria-label="navbar-emoji">
-            🗝️
-          </span>{" "}
-          Login
+      <li className="nav-list__item">
+        <Link to="/register" className="nav-list__link">
+          <svg className="nav-list__icon">
+            <use xlinkHref="/sprite.svg#icon-person_add"></use>
+          </svg>
+          <span>Register</span>
+        </Link>
+      </li>
+      <li className="nav-list__item">
+        <Link to="/login" className="nav-list__link">
+        <svg className="nav-list__icon">
+            <use xlinkHref="/sprite.svg#icon-vpn_key"></use>
+          </svg>
+          <span>Login</span>
         </Link>
       </li>
     </ul>
   );
 
   const userLinks = (
-    <ul id="menu-list">
-      <li className="logo">
-        <div>NOMEMPRESA</div>
-      </li>
-      <li>
-        <Link to="/about">
-          <span role="img" aria-label="navbar-emoji">
-            🌍
-          </span>{" "}
-          About
+    <ul className="nav-list">
+    <li className="nav-list__item">
+        <Link to="/" className="nav-list__link">
+          <svg className="nav-list__icon nav-list__icon--logo">
+              <use xlinkHref='/sprite.svg#icon-ballot'></use>
+          </svg>
+          <span className="logo-name">Minimal tracker</span>
         </Link>
       </li>
-      <li>
-        <Link to="/dashboard">
-          <span role="img" aria-label="navbar-emoji">
-            🏠️
-          </span>{" "}
-          Home
+      <li className="nav-list__item">
+        <Link to="/about" className="nav-list__link">
+          <svg className="nav-list__icon">
+            <use xlinkHref='/sprite.svg#icon-public'></use>
+          </svg>
+          <span>About</span>
         </Link>
       </li>
-      <li>
-        <Link to="/overview">
-          <span role="img" aria-label="navbar-emoji">
-            👤
-          </span>{" "}
-          Profile
+      <li className="nav-list__item">
+        <Link to="/dashboard" className="nav-list__link">
+          <svg className="nav-list__icon">
+            <use xlinkHref="/sprite.svg#icon-house"></use>
+          </svg>
+          <span>Home</span>
+        </Link>
+      </li>
+      <li className="nav-list__item">
+        <Link to="/overview" className="nav-list__link">
+          <svg className="nav-list__icon">
+            <use xlinkHref="/sprite.svg#icon-person"></use>
+          </svg>
+          <span>Profile</span>
         </Link>
       </li>
   </ul>
   );
   return (
-    <nav className="menu">
-      <button
-        onClick={e => toggleNav(e)}
-        aria-expanded="false"
-        aria-controls="menu-list"
-      >
-        <span className="open">☰</span>
-        <span className="close">×</span>
-        Menu
-      </button>
-      <Fragment>
+    <nav className="navbar">
         {isAuthenticated ? userLinks : guestLinks}
-      </Fragment>
-
     </nav>
   );
 };

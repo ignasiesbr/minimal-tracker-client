@@ -22,7 +22,7 @@ function AddIssue({projects, loadProjects,selected, addIssue}) {
   //Get the default project_id option, the first one
   useEffect(() => {
     loadProjects();
-  }, [projects]);
+  }, [projects, loadProjects]);
 
     
   const handleChange = e => {
@@ -36,46 +36,38 @@ function AddIssue({projects, loadProjects,selected, addIssue}) {
     if (project_id === "") {
       try {
         setIssue({...issueData, project_id: projects[0]._id})
-        return console.log(JSON.stringify(issueData));
-        return addIssue(type, summary, description, project_id)
       }
       catch(err) {
         return console.error('Something went wrong');
       }
     }
-    console.log(JSON.stringify(issueData))
     await addIssue(issueData);
-
-    return;
-    // addIssue(type, summary, description, project_id);
-  }
+   }
   
   return (
-    <div id="wrapper">
-      <section className="add-issue">
-        <form onSubmit={e => handleSubmit(e)}>
-          <label>Project</label>
-          <select value={project_id} name="project_id" onChange={e => handleChange(e)}>
+      <section className="add-issue-container">
+        <form className="form2" onSubmit={e => handleSubmit(e)}>
+          <label className="form2__label">Project</label>
+          <select className="form2__select u-margin-bottom-small" value={project_id} name="project_id" onChange={e => handleChange(e)}>
             {getOptions(projects)}
           </select>
-          <label>Issue Type</label>
-          <select value={type} name="type" onChange={e => handleChange(e)}>
+          <label className="form2__label">Issue Type</label>
+          <select  className="form2__select u-margin-bottom-small" value={type} name="type" onChange={e => handleChange(e)}>
             <option value="Bug">Bug</option>
             <option value="Task">Task</option>
             <option value="New Feature">New Feature</option>
           </select>
-          <hr />
-          <label>Summary *</label>
-          <input type="text" placeholder="Title of the issue" value={summary} name="summary" onChange={e => handleChange(e)} />
+          
+          <label className="form2__label">Summary *</label>
+          <input className="form2__input u-margin-bottom-small " type="text" placeholder="Title of the issue" value={summary} name="summary" onChange={e => handleChange(e)} />
           <span id="separator"></span>
-          <label>Description</label>
-          <textarea  value={description} name="description" onChange={e => handleChange(e)}></textarea>
-          <label>Deadline of the issue</label>
-          <input type="date" name="deadline" onChange={e => handleChange(e)}/>
-          <input type="submit" />
+          <label className="form2__label">Description</label>
+          <textarea className="form2__textarea u-margin-bottom-small "  value={description} name="description" onChange={e => handleChange(e)}></textarea>
+          <label className="form2__label">Deadline of the issue</label>
+          <input className="form2__input u-margin-bottom-small " type="date" name="deadline" onChange={e => handleChange(e)}/>
+          <input className="btn2 u-margin-bottom-medium " type="submit" />
         </form>
       </section>
-    </div>
   );
 }
 AddIssue.propTypes = {

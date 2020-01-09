@@ -1,6 +1,7 @@
 import React,{useState} from "react";
 import {connect} from 'react-redux';
 import {updateProfile} from '../../actions/profile';
+import UpdateAvatar from '../profile/UpdateAvatar';
 
 const UpdateProfile = ({updateProfile}) => {
 
@@ -15,7 +16,7 @@ const UpdateProfile = ({updateProfile}) => {
       role:"",
       location:"",
       bio:""
-    })
+    });
   }
 
   const handleChange = e => {
@@ -24,25 +25,24 @@ const UpdateProfile = ({updateProfile}) => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    console.log(JSON.stringify(formData));
     updateProfile(JSON.stringify(formData));
     cleanFields();
   }
 
   return (
-    <section className="edit-profile">
-      <h1 className="title">Update your profile</h1>
-      <form className="profile-form" action="post" onSubmit={e => handleSubmit(e)}>
-        <input type="text" placeholder=" Write your current role" name="role" value={role} onChange={e => handleChange(e)} />
-        <label>
+    <section className="update-profile">
+      <h1 className="heading-primary">Update your profile</h1>
+      <UpdateAvatar/>
+      <form className="form2" action="post" onSubmit={e => handleSubmit(e)}>
+        <label className="form2__label" >
           Post your current professional role (eg. Product Engineer)
         </label>
-        <input type="text" placeholder=" Location" name="location" value={location} onChange={e => handleChange(e)}/>
-        <label>City & Province suggested (eg. Terrassa, Barcelona)</label>
-        <textarea placeholder="A short bio about yourself" name="bio" value={bio} onChange={e => handleChange(e)}></textarea>
-        <label>Update your current bio</label>
-        <hr/>
-        <input type="submit" value="Submit"/>
+        <input className="form2__input u-margin-bottom-medium" type="text" placeholder=" Write your current role" name="role" value={role} onChange={e => handleChange(e)} />
+        <label  className="form2__label">City & Province suggested (eg. Terrassa, Barcelona)</label>
+        <input  className="form2__input u-margin-bottom-medium" type="text" placeholder=" Location" name="location" value={location} onChange={e => handleChange(e)}/>
+        <label  className="form2__label">Update your current bio</label>
+        <textarea className="form2__textarea u-margin-bottom-medium" placeholder="A short bio about yourself" name="bio" value={bio} onChange={e => handleChange(e)}></textarea>
+        <input className="btn2 u-margin-bottom-medium" type="submit" value="Submit"/>
       </form>
     </section>
   );

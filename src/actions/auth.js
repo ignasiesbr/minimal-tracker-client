@@ -5,7 +5,10 @@ import {
     LOGIN_SUCCESS,
     LOGIN_FAIL,
     USER_LOADED,
-    AUTH_ERROR
+    AUTH_ERROR,
+    UPDATE_USER_SUCCESS,
+    UPDATE_USER_FAILURE,
+    LOGOUT
 
 } from './constants';
 import setAuthToken from '../utils/setAuthToken';
@@ -60,14 +63,13 @@ export const login = (email, password) => async dispatch => {
     }
 }
 
-export const register = (name, email, password, password2)  => async dispatch =>{
+export const register = (name, email, password, password2, isAdmin)  => async dispatch =>{
     const config = {
         headers: {
             'Content-Type':'application/json'
         }
     };
-    console.log('gets to action');
-    const body = JSON.stringify({name, email, password, password2});
+    const body = JSON.stringify({name, email, password, password2, isAdmin});
     try {
         const res = await axios.post('/api/users', body, config);
         dispatch({
@@ -87,3 +89,40 @@ export const register = (name, email, password, password2)  => async dispatch =>
 
     }
 };
+
+export const updateAvatar = json => async dispatch => {
+    try {
+        const config = {
+            headers: {
+                'Content-Type':'application/json'
+            }
+        };
+        const res = await axios.patch('/api/users', json, config);
+        dispatch({
+            type: UPDATE_USER_SUCCESS,
+            payload: res.data
+        })
+    } catch (err) {
+        dispatch({
+            type: UPDATE_USER_FAILURE
+        })
+    }
+}
+
+export const logout = () => dispatch => {
+    dispatch({
+        type: LOGOUT
+    })
+}
+
+export const deleteUser = () => async dispatch  => {
+    try {
+        await axios.delete('/api/users');
+        dispatch({
+            type:LOGOUT
+        })
+        
+    } catch (err) {
+    
+    }
+}

@@ -1,9 +1,10 @@
 import React from 'react'
-import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types'
 import AddIssue from '../issues/AddIssue';
 import DialogButton from '../layout/DialogButton';
+import IssueLink from './IssueLink';
+import Spinner from '../layout/Spinner';
 
 
 const IssuesContainer = ({projects, loading}) => {
@@ -15,20 +16,21 @@ const IssuesContainer = ({projects, loading}) => {
     if (!issues) {
       return null;
     }
-    return issues.map(issue => 
-      (<li className="issue-item" key={issue._id} >
-        <Link className="link" to="#">
-          {issue.summary}
-        </Link>
-      </li>))
-  }
+    return issues.map(issue => {
+      return (
+        <li className="issue-list__item" key={issue._id}>
+          <IssueLink issue={issue}/>
+        </li>
+      ) 
+    });
+  };
 
     return (
-      loading ? (<h1>Loading . . .</h1>) : 
+      loading ? (<Spinner/>) : 
       !selectedProject ? (<h1>No project selected</h1>) :
-        <div className="project-issues-container">
-          <h2 className="subtitle">Issues</h2>
-          <ul className="project-issues">
+        <div className="issues-container">
+          <h2 className="heading-secondary u-margin-bottom-small u-border-bottom-medium">Issues</h2>
+          <ul className="issue-list">
             {generateIssueItems(selectedProject.issues)}
           </ul>
           <DialogButton children={<AddIssue selected={selectedProject._id} />} buttonName={<span>Add Issue</span>} />

@@ -11,10 +11,10 @@ const DialogButton = ({children, buttonName}) => {
     return (
         !isOpen ? (
             <div>
-                <button onClick={e => handleClick(e)}>{buttonName}</button>
+                <button className="btn2 u-margin-top-small" onClick={e => handleClick(e)}>{buttonName}</button>
             </div>) : 
         ( <div>
-            <button onClick={e => handleClick(e)}>{buttonName}</button>
+            <button className="btn2 u-margin-top-small" onClick={e => handleClick(e)}>{buttonName}</button>
             <div>
                 {children}
             </div>

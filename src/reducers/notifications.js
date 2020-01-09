@@ -1,4 +1,4 @@
-import {ADD_NOTIFICATION_SUCCESS, ADD_NOTIFICATION_FAILURE} from '../actions/constants';
+import {ADD_NOTIFICATION_SUCCESS, ADD_NOTIFICATION_FAILURE, MARK_AS_READ_FAILURE, MARK_AS_READ_SUCCESS} from '../actions/constants';
 
 //Lookup table for notifications by user_id
 const initialState = {};

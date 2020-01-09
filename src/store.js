@@ -12,6 +12,7 @@ const store = createStore(
     rootReducer,
     initialState,
     composeWithDevTools(applyMiddleware(...middlewares))
+    // applyMiddleware(...middlewares)
 );
 
 store.subscribe(() => {

@@ -3,6 +3,7 @@ import {login} from '../../actions/auth';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types'
 import {Link, Redirect} from 'react-router-dom';
+import svg from '../../assets/images/rest-girl.svg';
 
 const Login = ({login, isAuthenticated}) => {
 
@@ -28,21 +29,18 @@ const Login = ({login, isAuthenticated}) => {
 
   
   return (
-    <div id="wrapper">
       <section className="auth-form">
-        <div className="container">
-          <h1 id="title">Login</h1>
-          <form className="login-form" onSubmit={e => handleSubmit(e)}>
-            <h2>Username</h2>
-            <input type="text" name="email" placeholder="🕵︎ Type your email" value={email} onChange={e => handleChange(e)}/>
-            <h2>password</h2>
-            <input type="password" name="password" placeholder="🔒︎ Type your password" value={password} onChange={e => handleChange(e)} />
-            <Link to="/">Forgot your password? Click here</Link>
-            <input type="submit" value="Login" className="login-submit" />
+          <form className="form" onSubmit={e => handleSubmit(e)}>
+            <h1 className="heading-primary u-margin-bottom-small">Login</h1>
+            <label className="form__label" htmlFor="email">Email</label>
+            <input type="email" name="email" id="email" placeholder="🕵︎ Type your email" className="form__input" value={email} onChange={e => handleChange(e)}/>
+            <label className="form__label" htmlFor="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="🔒︎ Type your password" className="form__input" value={password} onChange={e => handleChange(e)} />
+            <Link className="btn btn-text u-margin-bottom-medium" to="/forgot">Forgot your password? Click here</Link>
+            <input type="submit" value="Login" className="form__submit btn btn-link u-margin-bottom-medium" />
           </form>
-        </div>
+          <img src={svg} className="auth-form__image" alt="login-bg" />
       </section>
-    </div>
   );
 };
 Login.propTypes = {

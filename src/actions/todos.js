@@ -45,10 +45,10 @@ export const getVisibleTodos = (filter) => async dispatch => {
         if (!filter) {
             filter = "ALL";
         }
-        const res = await axios.get(`/api/todos/${filter}`);
+        const res = await axios.get(`/api/todos/filter/${filter}`);
         dispatch({
             type: FILTER_TODOS,
-            payload: res.data
+            payload: {data: res.data, filter: filter}
         });
     }
     catch(err) {

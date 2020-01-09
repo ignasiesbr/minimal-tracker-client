@@ -2,7 +2,7 @@ import React,{useState} from "react";
 import {register} from '../../actions/auth';
 import { connect  } from 'react-redux';
 import PropTypes from 'prop-types'
-import {Redirect} from 'react-router-dom';
+import {Redirect, Link} from 'react-router-dom';
 
 const Register = ({register, isAuthenticated}) => {
 
@@ -10,10 +10,11 @@ const Register = ({register, isAuthenticated}) => {
     name:"",
     email:"",
     password: "",
-    password2: ""
+    password2: "",
+    isAdmin: false,
   });
 
-  const {name, email, password, password2} = formData;
+  const {name, email, password, password2, isAdmin} = formData;
 
   const handleChange = e => {
     setFormData({...formData, [e.target.name]:e.target.value});
@@ -21,7 +22,7 @@ const Register = ({register, isAuthenticated}) => {
 
   const handleSubmit = async e => {
     e.preventDefault();
-    register(name, email, password, password2);
+    register(name, email, password, password2, isAdmin);
   }
 
   if (isAuthenticated) {
@@ -29,24 +30,24 @@ const Register = ({register, isAuthenticated}) => {
   }
   
   return (
-    <div id="wrapper">
       <section className="auth-form">
-        <div className="container">
-          <h1>Register</h1>
-          <form className="login-form" onSubmit={e => handleSubmit(e)}>
-            <h2>Username</h2>
-            <input type="text" placeholder="🕵︎ Type your username" name="name" onChange={e => handleChange(e)}/>
-            <h2>Email</h2>
-            <input type="text" placeholder="🕵︎ Type your email" name="email" onChange={e => handleChange(e)}/>
-            <h2>password</h2>
-            <input type="password" placeholder="🔒︎ Type your password" name="password" onChange={e => handleChange(e)}/>
-            <h2>Repeat your password</h2>
-            <input type="password" placeholder="🔒︎ Repeat your password" name="password2" onChange={e => handleChange(e)}/>
-            <input type="submit" value="Register" className="login-submit" />
+          <form className="form" onSubmit={e => handleSubmit(e)}>
+            <h1 className="heading-primary u-margin-bottom-small">Register</h1>
+            <label className="form__label" htmlFor="username">Username</label>
+            <input className="form__input" required type="text" placeholder="🕵︎ Type your username" id="username" name="name" onChange={e => handleChange(e)}/>
+            <label className="form__label" htmlFor="email">Email</label>
+            <input className="form__input" required type="email" placeholder="🕵︎ Type your email" id="email" name="email" onChange={e => handleChange(e)}/>
+            <label className="form__label" htmlFor="password">Password</label>
+            <input  className="form__input" required type="password" placeholder="🔒︎ Type your password" id="password" name="password" onChange={e => handleChange(e)}/>
+            <label className="form__label" htmlFor="password2">Repeat your password</label>
+            <input className="form__input" required type="password" id="password2" placeholder="🔒︎ Repeat your password" name="password2" onChange={e => handleChange(e)}/>
+            <label htmlFor="admin" className="form__label">Do you want to be an admin? Mark the checkbox to register as so.</label>
+            <input id="admin" type="checkbox" onClick={() => setFormData({...formData, isAdmin: !formData.isAdmin})}/>
+            <label htmlFor="terms" className="form__label">I agree the <Link target="_blank" to="/terms">terms and conditions</Link> of the site</label>
+            <input id="terms" type="checkbox" required/>
+            <input type="submit" value="Register" className="form__submit btn btn-link u-margin-bottom-medium" />
           </form>
-        </div>
       </section>
-    </div>
   );
 };
 Register.propTypes = {

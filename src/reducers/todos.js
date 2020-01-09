@@ -4,7 +4,8 @@ import {LOAD_TODOS_SUCCESS, LOAD_TODOS_FAILURE, ADD_TODO_SUCCESS, ADD_TODO_FAILU
 const initialState = {
     todos: [],
     loading: true,
-    visibleTodos: []
+    visibleTodos: [],
+    filter: 'ALL'
 }
 
 export default (state = initialState, action) => {
@@ -15,6 +16,7 @@ export default (state = initialState, action) => {
                 loading: false,
                 todos: payload,
                 visibleTodos: payload,
+                filter: 'ALL'
             };
         case LOAD_TODOS_FAILURE:
             return {
@@ -41,7 +43,8 @@ export default (state = initialState, action) => {
         case FILTER_TODOS:
             return {
                 ...state,
-                visibleTodos: payload
+                visibleTodos: payload.data,
+                filter: payload.filter
             }
 
         case ADD_TODO_SUCCESS:
@@ -57,6 +60,7 @@ export default (state = initialState, action) => {
                 loading: false,
                 todos: state.todos.filter(todo => todo._id !== payload)
             };
+        case ADD_TODO_FAILURE:
         case REMOVE_TODO_FAILURE:
         case FILTER_TODOS_FAILURE:
         case UPDATE_TODO_FAILURE:

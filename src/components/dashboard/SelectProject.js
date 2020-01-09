@@ -3,24 +3,30 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types'
 import {changeSelectedProject} from '../../actions/projects';
 import AdminComponent from '../auth/AdminComponent';
+import RedirectButton from '../layout/RedirectButton';
+import Spinner from '../layout/Spinner';
 
 const SelectProject = ({projects, changeSelectedProject}) => {
 
-    const projectOptions = projects.projects.map(project => (
-        <option key={project._id} value={project._id}>{project.title}</option>
-      ));
+    const projectOptions = projects.projects.map(project => {
+      return (
+        <option className="select-project__option" key={project._id} value={project._id}>{project.title}</option>
+      )
+    });
+    
   
       const handleChange = e => {
         changeSelectedProject(e.target.value);
       }
 
-    return projects.isLoading ? <h1>Loading . . . </h1> : (
+    return projects.isLoading ? <Spinner/> : (
     (
-      <div>
-        <select onChange={e => handleChange(e)}>
+      <div className="select-project-container">
+        <select className="select-project" onChange={e => handleChange(e)} defaultValue={projects.selectedProject ? projects.selectedProject._id : null}>
           {projectOptions}
         </select>
-        <AdminComponent children={<h2>Create project</h2>} />
+        <AdminComponent children={<RedirectButton url={'/create-project'} name={'Create project'} />} />
+        <RedirectButton url={'/gantt'} name={'Go to GANTT'} />
       </div>
 
     ) )

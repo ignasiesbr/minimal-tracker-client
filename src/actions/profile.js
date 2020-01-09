@@ -25,3 +25,17 @@ export const updateProfile = json => async dispatch => {
 
     }
 };
+
+export const loadProfile = () => async dispatch => {
+    try {
+        const res = await axios.get('/api/profile/me');
+        dispatch({
+            type: UPDATE_PROFILE,
+            payload:res.data
+        });
+    } catch (err) {
+        dispatch({
+            type: UPDATE_PROFILE_FAILURE
+        });
+    }
+}

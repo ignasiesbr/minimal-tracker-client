@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import TodoContainer from './todos/TodoContainer';
+import TodoContainer from './TodoContainer';
 import {loadProjects} from '../../actions/projects';
 
 import SelectProject from "./SelectProject";
@@ -11,12 +11,15 @@ import { connect } from 'react-redux';
 const Dashboard = ({loadProjects}) => {
 
   useEffect(() => {
+    document.title = "Dashboard | Minimal Tracker";
     loadProjects();
-  }, [])
+  }, [loadProjects])
 
   return (
     <section className="dashboard">
-      <SelectProject />
+      <div className="select-container">
+        <SelectProject />
+      </div>
       <div className="dashboard-container">
         <TodoContainer />
         <ProjectContainer />
